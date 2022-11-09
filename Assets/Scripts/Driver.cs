@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class Driver : MonoBehaviour
 {
-   [SerializeField] float moveSpeed;
-   [SerializeField] float steerSpeed;
+    private float moveSpeed = 15;
+    private float steerSpeed = 90;
 
+    private float verticalInput;
+    private float rotationalInput;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-        float steerAmount = Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime;
-        float moveAmount = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        verticalInput = Input.GetAxis("Vertical");
+        rotationalInput = Input.GetAxis("Horizontal");
+
+
+        float steerAmount = rotationalInput * steerSpeed * Time.deltaTime;
+        float moveAmount = verticalInput * moveSpeed * Time.deltaTime;
         transform.Rotate(0, 0, -steerAmount);
         transform.Translate(0, moveAmount, 0);
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            moveSpeed = 30;
+        }
+        else
+        {
+            moveSpeed = 15;
+        }
     }
 }

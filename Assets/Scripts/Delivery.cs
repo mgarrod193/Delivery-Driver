@@ -6,9 +6,9 @@ public class Delivery : MonoBehaviour
 {
     private bool hasPackage = false;
 
-    private Color32 hasPackageColor =  new Color32(22, 255, 0, 255);
     private Color32 noPackageColor = new Color32(255, 255, 255, 255);
     private SpriteRenderer spriteRenderer;
+    private SpriteRenderer packageColor;
 
     private void Start()
     {
@@ -24,10 +24,11 @@ public class Delivery : MonoBehaviour
     {
         if (collision.tag == "Package" && !hasPackage)
         {
+            packageColor = collision.gameObject.GetComponent<SpriteRenderer>();
             Debug.Log("You picked up the package");
             hasPackage = true;
             Destroy(collision.gameObject, 0.5f);
-            spriteRenderer.color = hasPackageColor;
+            spriteRenderer.color = packageColor.color;
         }
 
         else if (collision.tag == "Customer" && hasPackage)
